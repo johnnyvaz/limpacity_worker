@@ -1,0 +1,2 @@
+INSERT INTO coleta_qrcode (id, ativo, creation_date, update_date, uuid, estacao_id, error, integration_description, integration_status) VALUES (1, true, '2021-04-12 19:41:24', null, 'e4eb4c0a-2042-4dc1-a7be-1403248fd955', 5, null, null, null);
+INSERT INTO coleta_qrcode (id, ativo, creation_date, update_date, uuid, estacao_id, error, integration_description, integration_status) VALUES (2, true, '2021-04-12 20:55:57', null, '0f2ac688-c643-41b4-b97c-c9fbbf325b70', 6, null, null, null);

@@ -1,0 +1,1 @@
+worker: java $JAVA_OPTS -Duser.timezone=America/Sao_Paulo -jar limpacity-worker-*.jar

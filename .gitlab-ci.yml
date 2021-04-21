@@ -1,0 +1,75 @@
+image: circleci/openjdk:11-jdk-browsers
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  APP_NAME: "limpacity-worker"
+  CLUSTER_PRODUCTION: ""
+  CLUSTER_STAGE: ""
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .m2/
+    - target
+
+stages:
+  - build
+  - test
+  - deploy
+
+build: &build
+  stage: build
+  cache: {}
+  script:
+    - mvn compile -DskipTests -s settings.xml
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_TAG =~ /^production-.+/
+
+build-commit:
+  <<: *build
+  only:
+    refs:
+      - branches
+
+test: &test
+  stage: test
+  script:
+    - mvn test -s settings.xml
+  only:
+    refs:
+      - branches
+
+
+test-tag:
+  <<: *test
+  script:
+    - mvn test -s settings.xml
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_TAG =~ /^production-.*/
+
+deploy-stage:
+  stage: deploy
+  before_script:
+    - mvn package -s settings.xml -DskipTests
+  script:
+    - ./deploy/deploy.sh $CLUSTER_STAGE $APP_NAME
+  only:
+    - stage
+
+deploy-production:
+  stage: deploy
+  before_script:
+    - mvn package -s settings.xml -DskipTests
+  script:
+    - ./deploy/deploy.sh $CLUSTER_PRODUCTION $APP_NAME
+  only:
+    refs:
+      - tags
+    variables:
+      - $CI_COMMIT_TAG =~ /^production-.*/
