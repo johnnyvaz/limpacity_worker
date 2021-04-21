@@ -33,7 +33,7 @@ public class ColetaQrCode {
 	private Date creationDate;
 
 	@Setter
-	private Date updateDate;
+	private LocalDateTime updateDate;
 
 	@Setter
 	private String error;

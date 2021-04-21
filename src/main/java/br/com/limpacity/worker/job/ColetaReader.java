@@ -27,18 +27,15 @@ public class ColetaReader {
 	private String getSelect() {
 		
 		return "SELECT "
-				+ "cd_empresa, "
-				+ "cd_deposito, "
-				+ "nu_palete, "
-				+ "nu_separacao, "
-				+ "id_picking_rapido, "
-				+ "cd_estacao,"
-				+ "id_cab_pedido_sorter, "
-				+ "qt_produto,"
-				+ "id_processado"				
+				+ "id, "
+				+ "ativo, "
+				+ "creation_date, "
+				+ "update_date, "
+				+ "uuid, "
+				+ "estacao_id,"
+				+ "integration_status"
 				+ " FROM " + getTableName()
-				+ " WHERE id_modelo_onda_sorter = 1 "
-				+ " AND id_processado IN ('N','R')";
+				+ " WHERE integration_status IN ('N','R')";
 	}
 	
 	public JdbcCursorItemReader<ColetaQrCode> reader() {

@@ -13,8 +13,9 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
   batch:
-    limit-thread: ${SPRING_BATCH_LIMIT:5}
+    limit-thread: ${SPRING_BATCH_LIMIT:1}
     initialize-schema: never
     job:
       enabled: false          

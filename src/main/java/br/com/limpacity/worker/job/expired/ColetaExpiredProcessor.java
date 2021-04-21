@@ -14,7 +14,7 @@ public class ColetaExpiredProcessor implements ItemProcessor<ColetaQrCode, Colet
 	@Override
 	public ColetaQrCode process(ColetaQrCode item) throws Exception {
 		String description = item.getIntegrationDescription();
-		item.setUpdateDate(new Date());
+		item.setUpdateDate(LocalDateTime.now());
 		item.setIntegrationStatus(IntegrationStatusEnum.FAILED.getStatus());
 		if (Objects.isNull(description)) {
 			description = "";

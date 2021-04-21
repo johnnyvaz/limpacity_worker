@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ColetaService {
 
-//	void integrate(List<? extends Coleta> coletas);
+	void sendMsg(List<? extends ColetaQrCode> coletas);
 
 //	void integrateColetas(List<? extends Coleta> coletas);
 

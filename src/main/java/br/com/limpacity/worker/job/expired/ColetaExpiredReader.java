@@ -24,20 +24,20 @@ public class ColetaExpiredReader {
 	
 	private String getTableName() {
 				
-		return schemaUtil.getTableWithSchema("INT_S_CAB_PEDIDO_SORTER ");
+		return schemaUtil.getTableWithSchema("coleta_qrcode ");
 		
 	}
 	
 	private String getSelect() {
 		
 		return "select * from " + getTableName()
-				+ " WHERE ID_PROCESSADO IN ('R') AND ID_MODELO_ONDA_SORTER = 1 AND " 
+				+ " WHERE integration_status IN ('R') AND " 
 				+ getFilterDifHour();
 	}
 	
 	private String getFilterDifHour() {
 				
-		return "24 * (sysdate - dt_addrow)>" + maxTimeHour;
+		return "24 * (SYSDATE() - creation_date)>" + maxTimeHour;
 		
 	}
 	

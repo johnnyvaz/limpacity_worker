@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -34,7 +35,7 @@ public class ColetaRepository {
 	private String getUpdate() {
 				
 		 return  "UPDATE " + getTableName() + " "
-		 		+ "SET ativo = 0 "
+		 		+ "SET integration_status = 'S' "
 				+ "WHERE id = ? ";
 
 	}
@@ -61,12 +62,7 @@ public class ColetaRepository {
 
 		public void dataBind(PreparedStatement ps, final ColetaQrCode dto) throws SQLException {
 
-			ps.setString(1, dto.getIntegrationStatus());
-
-			ps.setString(3, dto.getIntegrationDescription());
-			ps.setLong(4, dto.getEstacaoId());
-			ps.setBoolean(5, dto.getAtivo());
-			ps.setLong(6, dto.getId());
+			ps.setLong(1, dto.getId());
 
 		}
 

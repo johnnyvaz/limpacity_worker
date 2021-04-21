@@ -26,9 +26,9 @@ public class ColetaWriter implements ItemWriter<ColetaQrCode> {
 
 		final List<ColetaQrCode> coletaQrCodeValidList = new ArrayList<>();
 		coletas.forEach(coleta -> {
-			if (this.isValid(coleta)) {
+//			if (this.isValid(coleta)) {
 				coletaQrCodeValidList.add(coleta);
-			}
+//			}
 		});
 		return coletaQrCodeValidList;
 
@@ -55,7 +55,7 @@ public class ColetaWriter implements ItemWriter<ColetaQrCode> {
 	@Override
 	public void write(List<? extends ColetaQrCode> items) throws Exception {
 
-//		this.service.integrate(this.validate(items));
+		this.service.sendMsg(this.validate(items));
 
 	}
 

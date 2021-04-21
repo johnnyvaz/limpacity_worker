@@ -39,7 +39,7 @@ public class ColetaJobConfig {
 
         log.info("--> Init Job");
 
-        return jobBuilderFactory.get("separation")
+        return jobBuilderFactory.get("sendingMsg")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .start(coletaStep)

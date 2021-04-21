@@ -30,6 +30,15 @@ public class ColetaQrCodeServiceImpl implements ColetaService {
 //	}
 
 	@Override
+	public void sendMsg(List<? extends ColetaQrCode> coletas) {
+		System.out.println("coleta service ---> " + coletas);
+		coletas.forEach(coleta -> {
+			coleta.setIntegrationStatus("S");
+		});
+		this.save(coletas);
+	}
+
+	@Override
 	public void save(List<? extends ColetaQrCode> coletas) {
 		this.coletaRepository.update(coletas);
 	}
