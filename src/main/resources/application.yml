@@ -26,10 +26,10 @@ spring:
 
 limpacity:
   producerUrl: ${PRODUCER_URL:http://localhost:9002/producer/api/v1}
-  producerToken: ${PRODUCER_TOKEN:TEST}
+  producerToken: ${PRODUCER_TOKEN:''}
 
 api:
-  timeout: ${API_TIMEOUT:10000}
+  timeout: ${API_TIMEOUT:20000}
 
 
 info:

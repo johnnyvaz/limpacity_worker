@@ -11,5 +11,3 @@ public interface ColetaService {
 	void save(List<? extends ColetaQrCode> coletas);
 
 }
-//http://localhost:9002/producer/api/v1/notifica-email
-//http://localhost:9002/producer/api/v1/notifica-email
