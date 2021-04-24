@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ColetaService {
 
-	void sendMsg(List<? extends ColetaQrCode> coletas);
-
-//	void integrateColetas(List<? extends Coleta> coletas);
+	void sendMsg(List<ColetaQrCode> coletas);
 
 	void save(List<? extends ColetaQrCode> coletas);
 
 }
+//http://localhost:9002/producer/api/v1/notifica-email
+//http://localhost:9002/producer/api/v1/notifica-email

@@ -37,7 +37,7 @@ public class ColetaExpiredReader {
 	
 	private String getFilterDifHour() {
 				
-		return "24 * (SYSDATE() - creation_date)>" + maxTimeHour;
+		return "1 * (SYSDATE() - creation_date)>" + maxTimeHour;
 		
 	}
 	

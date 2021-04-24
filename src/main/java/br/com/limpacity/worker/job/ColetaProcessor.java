@@ -10,8 +10,6 @@ public class ColetaProcessor implements ItemProcessor<ColetaQrCode, ColetaQrCode
 
 	@Override
 	public ColetaQrCode process(ColetaQrCode item) throws Exception {
-
-		System.out.println("passando pelo processor");
 		return item;
 	}
 

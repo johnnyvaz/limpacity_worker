@@ -57,7 +57,7 @@ class ColetaQrCodeExpiredWriterTest {
 				.estacaoId(1L)
 				.uuid("ebda9df8-b301-4fd8-9779-f89564bdf6ba")
 				.id(3L)
-				.updateDate(LocalDateTime.now())
+				.updateDate(new Date())
 				.integrationStatus(IntegrationStatusEnum.SUCCESS.getStatus())
 				.build();
 		coletaQrCodeList.add(coletaQrCode);

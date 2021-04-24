@@ -24,6 +24,14 @@ spring:
     allow-bean-definition-overriding: true
     banner-mode: "off"
 
+limpacity:
+  producerUrl: ${PRODUCER_URL:http://localhost:9002/producer/api/v1}
+  producerToken: ${PRODUCER_TOKEN:TEST}
+
+api:
+  timeout: ${API_TIMEOUT:10000}
+
+
 info:
   app:
     encoding: '@project.build.sourceEncoding@'

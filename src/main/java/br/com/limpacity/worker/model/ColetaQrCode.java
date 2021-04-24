@@ -23,6 +23,7 @@ public class ColetaQrCode {
 	@NotNull
 	private String uuid;
 
+	@Setter
 	@NotNull
 	private Boolean ativo;
 
@@ -33,7 +34,7 @@ public class ColetaQrCode {
 	private Date creationDate;
 
 	@Setter
-	private LocalDateTime updateDate;
+	private Date updateDate;
 
 	@Setter
 	private String error;
