@@ -4,9 +4,9 @@ import br.com.limpacity.worker.job.ColetaJobListener;
 import br.com.limpacity.worker.job.ColetaProcessor;
 import br.com.limpacity.worker.job.ColetaReader;
 import br.com.limpacity.worker.job.ColetaWriter;
-import br.com.limpacity.worker.job.expired.ColetaExpiredProcessor;
-import br.com.limpacity.worker.job.expired.ColetaExpiredReader;
-import br.com.limpacity.worker.job.expired.ColetaExpiredWriter;
+import br.com.limpacity.worker.job.expired.ColetaFirstNotProcessor;
+import br.com.limpacity.worker.job.expired.ColetaFirstNotReader;
+import br.com.limpacity.worker.job.expired.ColetaFirstNotWriter;
 import br.com.limpacity.worker.model.ColetaQrCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -35,7 +35,7 @@ public class ColetaJobConfig {
                     ColetaJobListener listener,
                     StepBuilderFactory stepBuilderFactory,
                     Step coletaStep,
-                    Step expiredStep) {
+                    Step firstNotStep) {
 
         log.info("--> Init Job");
 
@@ -43,7 +43,7 @@ public class ColetaJobConfig {
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .start(coletaStep)
-                .next(expiredStep)
+                .next(firstNotStep)
                 .build();
 
     }
@@ -71,10 +71,10 @@ public class ColetaJobConfig {
     }
 
     @Bean
-    public Step expiredStep(StepBuilderFactory stepBuilderFactory,
-                            ColetaExpiredReader reader,
-                            ColetaExpiredProcessor processor,
-                            ColetaExpiredWriter writer, TaskExecutor taskExecutor) {
+    public Step firstNotStep(StepBuilderFactory stepBuilderFactory,
+                            ColetaFirstNotReader reader,
+                            ColetaFirstNotProcessor processor,
+                            ColetaFirstNotWriter writer, TaskExecutor taskExecutor) {
 
         return stepBuilderFactory.get("expiredStep")
                 .<ColetaQrCode, ColetaQrCode>chunk(this.chunkSize)

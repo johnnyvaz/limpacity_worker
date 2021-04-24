@@ -26,15 +26,7 @@ public class ColetaReader {
 	
 	private String getSelect() {
 		
-		return "SELECT "
-				+ "id, "
-				+ "ativo, "
-				+ "creation_date, "
-				+ "update_date, "
-				+ "uuid, "
-				+ "estacao_id,"
-				+ "integration_status"
-				+ " FROM " + getTableName()
+		return "SELECT * FROM " + getTableName()
 				+ " WHERE integration_status IN ('N','R')";
 	}
 	

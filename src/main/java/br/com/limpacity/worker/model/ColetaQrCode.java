@@ -3,17 +3,16 @@ package br.com.limpacity.worker.model;
 import br.com.limpacity.worker.util.IntegrationStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
+@Entity
+@Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class ColetaQrCode {
@@ -23,27 +22,22 @@ public class ColetaQrCode {
 	@NotNull
 	private String uuid;
 
-	@Setter
 	@NotNull
 	private Boolean ativo;
 
 	@NotNull
-	private Long estacaoId;
+	private Long postoId;
 
 	@NotNull
 	private Date creationDate;
 
-	@Setter
 	private Date updateDate;
 
-	@Setter
 	private String error;
 	
-	@Setter
 	private String integrationStatus;
 
-	@Setter
-	private String integrationDescription;
+	private Integer qtdeNotEmail;
 
 	public String getIntegrationStatus() {
 		if (integrationStatus==null)
@@ -52,4 +46,9 @@ public class ColetaQrCode {
 		}		
 		return integrationStatus;
 	}
+
+	private Date dataUltimoEmail;
+
+	private String campoTest;
+
 }

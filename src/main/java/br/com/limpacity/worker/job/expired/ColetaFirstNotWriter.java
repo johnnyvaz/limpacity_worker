@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ColetaExpiredWriter implements ItemWriter<ColetaQrCode> {
+public class ColetaFirstNotWriter implements ItemWriter<ColetaQrCode> {
 
 	@Autowired
 	private ColetaService service;

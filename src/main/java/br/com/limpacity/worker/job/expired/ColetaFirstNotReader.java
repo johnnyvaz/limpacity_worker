@@ -12,15 +12,15 @@ import javax.sql.DataSource;
 
 
 @Component
-public class ColetaExpiredReader {
+public class ColetaFirstNotReader {
 	@Autowired
 	private DataSource dataSource;
 	
 	@Autowired
 	private SchemaDatabaseUtil schemaUtil;
 	
-	@Value("${worker.retry.maxtime}")
-	private Double maxTimeHour;
+	@Value("${notificacoes.not1}")
+	private Double firstNotTime;
 	
 	private String getTableName() {
 				
@@ -31,15 +31,16 @@ public class ColetaExpiredReader {
 	private String getSelect() {
 		
 		return "select * from " + getTableName()
-				+ " WHERE integration_status IN ('R') AND " 
-				+ getFilterDifHour();
+				+ " WHERE integration_status IN ('R', 'N') AND " +
+				" data_ultimo_email*1 - (creation_date * 1) > 10000 ";
+//				+ getFilterDifHour();
 	}
 	
-	private String getFilterDifHour() {
-				
-		return "1 * (SYSDATE() - creation_date)>" + maxTimeHour;
-		
-	}
+//	private String getFilterDifHour() {
+//		var tempo = "1 * (SYSDATE() - data_ultimo_email)>" + firstNotTime;
+//		System.out.println("tempo ----------------> " + tempo);
+//		return tempo;
+//	}
 	
 	
 	public JdbcCursorItemReader<ColetaQrCode> reader() {

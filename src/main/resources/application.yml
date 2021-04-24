@@ -14,6 +14,23 @@ spring:
     password: ${DB_PASSWORD}
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    show-sql: ${LOG_SQL:true}
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql: true
+        dialect: org.hibernate.dialect.MySQL55Dialect
+        proc:
+          param_null_passing:true
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      javax:
+        persistence.query.timeout: ${QUERY_TIMEOUT:10000}
+        persistence.lock.timeout: ${LOCK_TIMEOUT:3000}
   batch:
     limit-thread: ${SPRING_BATCH_LIMIT:1}
     initialize-schema: never
@@ -30,6 +47,13 @@ limpacity:
 
 api:
   timeout: ${API_TIMEOUT:20000}
+
+notificacoes:
+  not1: ${NOT1:3}
+  not2: ${NOT2:3}
+  not3: ${NOT3:3}
+  not4: ${NOT4:3}
+  not5: ${NOT5:3}
 
 
 info:
@@ -50,3 +74,4 @@ worker:
   
 management.endpoint.health.show-details: always
 
+timezone: ${TIMEZONE:America/Sao_Paulo}

@@ -11,7 +11,7 @@ public class ColetaRowMapper implements RowMapper<ColetaQrCode> {
 	public static final String ROW_ID = "ID";
 	public static final String ROW_UUID = "UUID";
 	public static final String ROW_ATIVO = "ATIVO";
-	public static final String ROW_ESTACAO_ID = "ESTACAO_ID";
+	public static final String ROW_POSTO_ID = "POSTO_ID";
 	public static final String ROW_CREATION_DATE = "CREATION_DATE";
 	public static final String ROW_INTEGRATION_STATUS = "INTEGRATION_STATUS";
 	
@@ -21,7 +21,7 @@ public class ColetaRowMapper implements RowMapper<ColetaQrCode> {
 				.id(rs.getLong(ColetaRowMapper.ROW_ID))
 				.uuid(rs.getString(ColetaRowMapper.ROW_UUID))
 				.ativo(rs.getBoolean(ColetaRowMapper.ROW_ATIVO))
-				.estacaoId(rs.getLong(ColetaRowMapper.ROW_ESTACAO_ID))
+				.postoId(rs.getLong(ColetaRowMapper.ROW_POSTO_ID))
 				.creationDate(rs.getDate(ColetaRowMapper.ROW_CREATION_DATE))
 				.integrationStatus(rs.getString(ColetaRowMapper.ROW_INTEGRATION_STATUS))
 				.id(rs.getLong(ColetaRowMapper.ROW_ID))
