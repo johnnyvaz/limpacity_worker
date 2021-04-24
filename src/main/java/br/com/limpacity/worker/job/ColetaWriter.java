@@ -1,6 +1,6 @@
 package br.com.limpacity.worker.job;
 
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import br.com.limpacity.worker.service.ColetaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;
@@ -17,43 +17,43 @@ import java.util.Set;
 
 @Component
 @Slf4j
-public class ColetaWriter implements ItemWriter<ColetaQrCode> {
+public class ColetaWriter implements ItemWriter<ColetaQrCodeModel> {
 
 	@Autowired
 	private ColetaService service;
 
-	public List<ColetaQrCode> validate(List<? extends ColetaQrCode> coletas) {
+	public List<ColetaQrCodeModel> validate(List<? extends ColetaQrCodeModel> coletas) {
 
-		final List<ColetaQrCode> coletaQrCodeValidList = new ArrayList<>();
+		final List<ColetaQrCodeModel> coletaQrCodeModelValidList = new ArrayList<>();
 		coletas.forEach(coleta -> {
 			if (this.isValid(coleta)) {
-				coletaQrCodeValidList.add(coleta);
+				coletaQrCodeModelValidList.add(coleta);
 			}
 		});
-		return coletaQrCodeValidList;
+		return coletaQrCodeModelValidList;
 
 	}
 
-	public boolean isValid(ColetaQrCode coletaQrCode) {
+	public boolean isValid(ColetaQrCodeModel coletaQrCodeModel) {
 
 		final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		final Validator validator = factory.getValidator();
-		final Set<ConstraintViolation<ColetaQrCode>> violations = validator.validate(coletaQrCode);
+		final Set<ConstraintViolation<ColetaQrCodeModel>> violations = validator.validate(coletaQrCodeModel);
 		if (!violations.isEmpty()) {
 			final StringBuilder integrationErrorValidation = new StringBuilder();
-			ColetaWriter.log.error("Coleta invalid. {}", coletaQrCode.toString());
-			for (final ConstraintViolation<ColetaQrCode> violation : violations) {
+			ColetaWriter.log.error("Coleta invalid. {}", coletaQrCodeModel.toString());
+			for (final ConstraintViolation<ColetaQrCodeModel> violation : violations) {
 				ColetaWriter.log.error(violation.getMessage());
 				integrationErrorValidation.append(violation.getMessage());
 			}
-			coletaQrCode.setIntegrationStatus("E");
-			coletaQrCode.setError(integrationErrorValidation.toString());
+			coletaQrCodeModel.setIntegrationStatus("E");
+			coletaQrCodeModel.setError(integrationErrorValidation.toString());
 		}
 		return violations.isEmpty();
 	}
 
 	@Override
-	public void write(List<? extends ColetaQrCode> items) throws Exception {
+	public void write(List<? extends ColetaQrCodeModel> items) throws Exception {
 
 		this.service.sendMsg(this.validate(items));
 

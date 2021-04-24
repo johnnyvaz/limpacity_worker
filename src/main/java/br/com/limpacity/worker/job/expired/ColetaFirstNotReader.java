@@ -2,7 +2,7 @@ package br.com.limpacity.worker.job.expired;
 
 import br.com.limpacity.worker.dao.ColetaRowMapper;
 import br.com.limpacity.worker.dao.SchemaDatabaseUtil;
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,9 +43,9 @@ public class ColetaFirstNotReader {
 //	}
 	
 	
-	public JdbcCursorItemReader<ColetaQrCode> reader() {
+	public JdbcCursorItemReader<ColetaQrCodeModel> reader() {
 
-		final JdbcCursorItemReader<ColetaQrCode> jdbcCursor = new JdbcCursorItemReader<>();
+		final JdbcCursorItemReader<ColetaQrCodeModel> jdbcCursor = new JdbcCursorItemReader<>();
 		jdbcCursor.setDataSource(this.dataSource);
 		jdbcCursor.setSql(getSelect());
 		jdbcCursor.setRowMapper(new ColetaRowMapper());

@@ -1,13 +1,13 @@
 package br.com.limpacity.worker.job;
 
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
-class ColetaQrCodeProcessorTest {
+class ColetaQrCodeModelProcessorTest {
 
 	@InjectMocks
     ColetaProcessor processor;
@@ -20,8 +20,8 @@ class ColetaQrCodeProcessorTest {
 	@Test
 	void process() {
 		
-		ColetaQrCode coletaQrCode = ColetaQrCode.builder().build();
-		Assertions.assertDoesNotThrow(()-> processor.process(coletaQrCode));
+		ColetaQrCodeModel coletaQrCodeModel = ColetaQrCodeModel.builder().build();
+		Assertions.assertDoesNotThrow(()-> processor.process(coletaQrCodeModel));
 		
 	}
 	

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ import br.com.limpacity.worker.util.IntegrationStatusEnum;
 @AutoConfigureTestDatabase
 @TestPropertySource(properties= {"spring.batch.limit-thread=5", "spring.batch.chunk=2","worker.retry.maxtime=1"})
 @Sql(value = "classpath:pull/coletaQrCode.sql")
-class ColetaQrCodeExpiredWriterTest {
+class ColetaQrCodeModelExpiredWriterTest {
 	
 	@Autowired
 	private ColetaFirstNotWriter writer;
@@ -50,16 +50,16 @@ class ColetaQrCodeExpiredWriterTest {
 		
 	@Test
 	void saveFailed() {
-		List<ColetaQrCode> coletaQrCodeList = new ArrayList<>();
-		ColetaQrCode coletaQrCode = ColetaQrCode.builder()
+		List<ColetaQrCodeModel> coletaQrCodeModelList = new ArrayList<>();
+		ColetaQrCodeModel coletaQrCodeModel = ColetaQrCodeModel.builder()
 				.ativo(true)
-				.postoId(1L)
+//				.postoId(1L)
 				.uuid("ebda9df8-b301-4fd8-9779-f89564bdf6ba")
 				.id(3L)
 				.updateDate(new Date())
 				.integrationStatus(IntegrationStatusEnum.SUCCESS.getStatus())
 				.build();
-		coletaQrCodeList.add(coletaQrCode);
-		Assertions.assertDoesNotThrow(()->writer.write(coletaQrCodeList));
+		coletaQrCodeModelList.add(coletaQrCodeModel);
+		Assertions.assertDoesNotThrow(()->writer.write(coletaQrCodeModelList));
 	}
 }

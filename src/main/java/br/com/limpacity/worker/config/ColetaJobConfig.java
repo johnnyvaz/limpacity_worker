@@ -7,7 +7,7 @@ import br.com.limpacity.worker.job.ColetaWriter;
 import br.com.limpacity.worker.job.expired.ColetaFirstNotProcessor;
 import br.com.limpacity.worker.job.expired.ColetaFirstNotReader;
 import br.com.limpacity.worker.job.expired.ColetaFirstNotWriter;
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -60,7 +60,7 @@ public class ColetaJobConfig {
                            ColetaWriter writer, TaskExecutor taskExecutor) {
 
         return stepBuilderFactory.get("coletaStep")
-                .<ColetaQrCode, ColetaQrCode>chunk(this.chunkSize)
+                .<ColetaQrCodeModel, ColetaQrCodeModel>chunk(this.chunkSize)
                 .reader(reader.reader())
                 .processor(processor)
                 .writer(writer)
@@ -77,7 +77,7 @@ public class ColetaJobConfig {
                             ColetaFirstNotWriter writer, TaskExecutor taskExecutor) {
 
         return stepBuilderFactory.get("expiredStep")
-                .<ColetaQrCode, ColetaQrCode>chunk(this.chunkSize)
+                .<ColetaQrCodeModel, ColetaQrCodeModel>chunk(this.chunkSize)
                 .reader(reader.reader())
                 .processor(processor)
                 .writer(writer)

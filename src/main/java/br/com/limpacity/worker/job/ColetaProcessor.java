@@ -1,15 +1,15 @@
 package br.com.limpacity.worker.job;
 
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ColetaProcessor implements ItemProcessor<ColetaQrCode, ColetaQrCode> {
+public class ColetaProcessor implements ItemProcessor<ColetaQrCodeModel, ColetaQrCodeModel> {
 
 
 	@Override
-	public ColetaQrCode process(ColetaQrCode item) throws Exception {
+	public ColetaQrCodeModel process(ColetaQrCodeModel item) throws Exception {
 		return item;
 	}
 

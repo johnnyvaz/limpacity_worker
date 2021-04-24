@@ -3,17 +3,15 @@ package br.com.limpacity.worker.service.impl;
 import br.com.limpacity.producer.dto.NotificaEmailDTO;
 import br.com.limpacity.worker.apiClient.ProducerApiClient;
 import br.com.limpacity.worker.dao.ColetaRepository;
-import br.com.limpacity.worker.model.ColetaQrCode;
+import br.com.limpacity.worker.model.ColetaQrCodeModel;
 import br.com.limpacity.worker.repository.ColetaUpdateRepository;
 import br.com.limpacity.worker.service.ColetaService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,25 +34,29 @@ public class ColetaQrCodeServiceImpl implements ColetaService {
 
 	@Override
 	@Transactional
-	public void sendMsg(List<ColetaQrCode> coletas) {
+	public void sendMsg(List<ColetaQrCodeModel> coletas) {
+
 		coletas.forEach(coleta -> {
+			producerApiClient.postEmail(toEmails(coletas));
 			update.updateWithQuery(coleta);
+			this.save(coletas);
 		});
-		producerApiClient.postEmail(toEmails(coletas));
-		this.save(coletas);
+
+//		producerApiClient.postEmail(toEmails(coletas));
+//		this.save(coletas);
 	}
 
 	@Override
-	public void save(List<? extends ColetaQrCode> coletas) {
+	public void save(List<? extends ColetaQrCodeModel> coletas) {
 		this.coletaRepository.update(coletas);
 	}
 
 
-	private List<NotificaEmailDTO> toEmails(List<ColetaQrCode> coleta) {
+	private List<NotificaEmailDTO> toEmails(List<ColetaQrCodeModel> coleta) {
 		return coleta.stream().map(this::toEmail).collect(Collectors.toList());
 	}
 
-	private NotificaEmailDTO toEmail(ColetaQrCode coleta) {
+	private NotificaEmailDTO toEmail(ColetaQrCodeModel coleta) {
 		return NotificaEmailDTO.builder()
 				.assunto("Email de Coleta - tentativa automática " + coleta.getId())
 				.copia("copia")

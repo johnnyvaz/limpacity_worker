@@ -17,7 +17,7 @@ import org.springframework.batch.core.JobExecution;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)
-class ColetaQrCodeJobListenerTest {
+class ColetaQrCodeModelJobListenerTest {
 	
 	@Mock
 	JobExecution jobExecution;
