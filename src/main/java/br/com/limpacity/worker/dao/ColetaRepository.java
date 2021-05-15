@@ -5,9 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
 @Repository
 public class ColetaRepository {
@@ -26,17 +32,20 @@ public class ColetaRepository {
 	
 	private String getSelect() {
 		
-		return "select * from " + getTableName() 
+		return "select id, ativo, creation_date," +
+				" uuid, integration_status, qtde_not_email, data_ultimo_email from " + getTableName()
 				+ " WHERE id = ? ";
 
 	}
 	
 	private String getUpdate() {
-				
-		 return  "UPDATE " + getTableName() + " "
-		 		+ "SET integration_status = 'S' "
-				+ "WHERE id = ? ";
 
+		return  "UPDATE " + getTableName() + " " +
+		 		 "SET integration_status = 'R' ," +
+				 " qtde_not_email = qtde_not_email +1," +
+				 " data_ultimo_email = (SELECT SYSDATE()), " +
+				 " update_date = (SELECT SYSDATE()) " +
+				 " WHERE id = ? ";
 	}
 
 

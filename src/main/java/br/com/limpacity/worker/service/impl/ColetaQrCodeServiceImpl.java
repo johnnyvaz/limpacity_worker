@@ -3,14 +3,14 @@ package br.com.limpacity.worker.service.impl;
 import br.com.limpacity.producer.dto.NotificaEmailDTO;
 import br.com.limpacity.worker.apiClient.ProducerApiClient;
 import br.com.limpacity.worker.dao.ColetaRepository;
+import br.com.limpacity.worker.exception.ColetaQrCodeException;
 import br.com.limpacity.worker.model.ColetaQrCodeModel;
-import br.com.limpacity.worker.repository.ColetaUpdateRepository;
+import br.com.limpacity.worker.repository.ColetaQrCodeRepository;
 import br.com.limpacity.worker.service.ColetaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,23 +27,28 @@ public class ColetaQrCodeServiceImpl implements ColetaService {
 	private String not1;
 
 	@Autowired
-	private ColetaRepository coletaRepository;
+	private ColetaQrCodeRepository coletaQrCode;
 
 	@Autowired
-	private ColetaUpdateRepository update;
+	private ColetaRepository coletaRepository;
+
+
+	public List<ColetaQrCodeModel> findAllColetasOpen(){
+		final List<ColetaQrCodeModel> result = coletaQrCode.findAllColetasOpen();
+		if(result.isEmpty()) {
+			throw new ColetaQrCodeException();
+		}
+		return  result;
+	}
 
 	@Override
-	@Transactional
 	public void sendMsg(List<ColetaQrCodeModel> coletas) {
 
 		coletas.forEach(coleta -> {
 			producerApiClient.postEmail(toEmails(coletas));
-			update.updateWithQuery(coleta);
-			this.save(coletas);
 		});
+		this.save(coletas);
 
-//		producerApiClient.postEmail(toEmails(coletas));
-//		this.save(coletas);
 	}
 
 	@Override
@@ -58,12 +63,12 @@ public class ColetaQrCodeServiceImpl implements ColetaService {
 
 	private NotificaEmailDTO toEmail(ColetaQrCodeModel coleta) {
 		return NotificaEmailDTO.builder()
-				.assunto("Email de Coleta - tentativa automática " + coleta.getId())
+				.assunto("Email automático " + coleta.getId())
 				.copia("copia")
 				.creationDate(new Date())
-				.destino("email destino")
-				.descricaoColeta("descrição coleta: " + coleta.getUuid())
-				.mensagem("Corpo da mensagem")
+				.destino("johnnyjohnnyjohnnyvaz@gmail.com")
+				.descricaoColeta("descrição coleta: ")
+				.mensagem("Você tem uma coleta para ser realizada : " + coleta.getUuid())
 				.build();
 
 	}

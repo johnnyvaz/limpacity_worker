@@ -1,6 +1,6 @@
 # Limpacity - Worker 
 
-Este worker realiza a verificação de coletas não realizadas e dispara novas notificações.
+Este worker realiza de tempos em tempos a verificação de coletas não realizadas no banco de dados e dispara novas notificações.
 
 ## Requisitos
 ```sh

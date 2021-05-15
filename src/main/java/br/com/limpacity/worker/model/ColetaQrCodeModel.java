@@ -59,12 +59,11 @@ public class ColetaQrCodeModel {
 
 	private String integrationStatus;
 
+	@Column(name="qtde_not_email")
 	private Integer qtdeNotEmail;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_ultimo_email")
 	private Date dataUltimoEmail;
-
-	private String testCampo;
 
 }
